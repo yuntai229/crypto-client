@@ -15,6 +15,22 @@ class TokenController extends Controller {
     	ctx.body = result;
 
   	}	
+	async getCurrentMarketCap() {
+		const { ctx } = this;
+		const params = this.ctx.params
+
+		const result = await this.service.token.getCurrentMarketCap(params)
+		ctx.body = result;
+  	}	
+
+	async getHistoryMarketCap() {
+		const { ctx } = this;
+		const params = this.ctx.params
+
+		const result = await this.service.token.getHistoryMarketCap(params)
+		ctx.body = result;
+  	}	
+
 }
 
 module.exports = TokenController;

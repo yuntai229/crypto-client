@@ -42,6 +42,44 @@ class TokenService extends Service {
 	async verifyToken(tokenAddress) {
 		return web3.utils.isAddress(tokenAddress)
 	}
+
+	async getCurrentMarketCap(params) {
+		try {
+			this.logger.info('[getCurrentMarketCap] req: %s', JSON.stringify({ params }))
+
+			const tokenAddress = params.tokenAddress
+
+			const result = await this.service.redis.getValue(`current_${tokenAddress}`)
+
+			return {
+				code: '200',
+				marketCap: result
+			}
+		} catch (err) {
+			this.logger.error('[getCurrentMarketCap] req: %s, err: %s', JSON.stringify({ params }), err.message)
+			throw err
+		}
+	}
+
+	async getHistoryMarketCap(params) {
+		try {
+			this.logger.info('[getHistoryMarketCap] req: %s', JSON.stringify({ params }))
+
+			const tokenAddress = params.tokenAddress
+
+			const value = await this.service.redis.getValue(`history_${tokenAddress}`)
+
+			const history = JSON.parse(value).history
+
+			return {
+				code: '200',
+				data: history
+			}
+		} catch (err) {
+			this.logger.error('[getHistoryMarketCap] req: %s, err: %s', JSON.stringify({ params }), err.message)
+			throw err
+		}
+	}
 }
 
 
