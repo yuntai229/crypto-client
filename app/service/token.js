@@ -49,11 +49,18 @@ class TokenService extends Service {
 
 			const tokenAddress = params.tokenAddress
 
-			const result = await this.service.redis.getValue(`current_${tokenAddress}`)
+			const value = await this.service.redis.getValue(`current_${tokenAddress}`)
+
+			if (value === null) {
+				return {
+					code: '400',
+					message: 'invalid input'
+				}
+			}
 
 			return {
 				code: '200',
-				marketCap: result
+				message: value
 			}
 		} catch (err) {
 			this.logger.error('[getCurrentMarketCap] req: %s, err: %s', JSON.stringify({ params }), err.message)
@@ -69,11 +76,18 @@ class TokenService extends Service {
 
 			const value = await this.service.redis.getValue(`history_${tokenAddress}`)
 
+			if (value === null) {
+				return {
+					code: '400',
+					message: 'invalid input'
+				}
+			}
+
 			const history = JSON.parse(value).history
 
 			return {
 				code: '200',
-				data: history
+				message: history
 			}
 		} catch (err) {
 			this.logger.error('[getHistoryMarketCap] req: %s, err: %s', JSON.stringify({ params }), err.message)
