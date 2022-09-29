@@ -23,7 +23,10 @@ module.exports = appInfo => {
   };
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = ['accessLogger'];
+  config.accessLogger = {
+    match: '/',
+  };
 
   // add your user config here
   const userConfig = {
@@ -38,12 +41,13 @@ module.exports = appInfo => {
       logging: false,
       define: { freezeTableName: true, timestamps: false },
     },
-
-    // === middleware ===
-    middleware: [ 'accessLogger' ],
-
-    accessLogger: {
-     match: '/',
+    redis: {
+      client: {
+        host: '127.0.0.1',
+        port: 6378,
+        password: '',
+        db: 0,
+      }
     }
   };
 
