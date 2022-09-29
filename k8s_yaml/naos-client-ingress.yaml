@@ -1,0 +1,73 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/backends: '{"k8s1-27628704-default-naos-client-service-7000-129db24a":"HEALTHY"}'
+    ingress.kubernetes.io/forwarding-rule: k8s2-fr-6zd1cmkn-default-naos-client-wczj4vx9
+    ingress.kubernetes.io/https-forwarding-rule: k8s2-fs-6zd1cmkn-default-naos-client-wczj4vx9
+    ingress.kubernetes.io/https-target-proxy: k8s2-ts-6zd1cmkn-default-naos-client-wczj4vx9
+    ingress.kubernetes.io/ssl-cert: k8s2-cr-6zd1cmkn-etk2m2szn1tb5dvy-7142d09cede352ec
+    ingress.kubernetes.io/static-ip: k8s2-fr-6zd1cmkn-default-naos-client-wczj4vx9
+    ingress.kubernetes.io/target-proxy: k8s2-tp-6zd1cmkn-default-naos-client-wczj4vx9
+    ingress.kubernetes.io/url-map: k8s2-um-6zd1cmkn-default-naos-client-wczj4vx9
+  creationTimestamp: "2022-09-28T14:28:24Z"
+  finalizers:
+  - networking.gke.io/ingress-finalizer-V2
+  generation: 1
+  managedFields:
+  - apiVersion: networking.k8s.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        f:defaultBackend:
+          .: {}
+          f:service:
+            .: {}
+            f:name: {}
+            f:port:
+              .: {}
+              f:number: {}
+        f:tls: {}
+    manager: GoogleCloudConsole
+    operation: Update
+    time: "2022-09-28T14:28:24Z"
+  - apiVersion: networking.k8s.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:ingress.kubernetes.io/backends: {}
+          f:ingress.kubernetes.io/forwarding-rule: {}
+          f:ingress.kubernetes.io/https-forwarding-rule: {}
+          f:ingress.kubernetes.io/https-target-proxy: {}
+          f:ingress.kubernetes.io/ssl-cert: {}
+          f:ingress.kubernetes.io/static-ip: {}
+          f:ingress.kubernetes.io/target-proxy: {}
+          f:ingress.kubernetes.io/url-map: {}
+        f:finalizers:
+          .: {}
+          v:"networking.gke.io/ingress-finalizer-V2": {}
+      f:status:
+        f:loadBalancer:
+          f:ingress: {}
+    manager: glbc
+    operation: Update
+    subresource: status
+    time: "2022-09-28T14:29:45Z"
+  name: naos-client
+  namespace: default
+  resourceVersion: "29632564"
+  uid: 62dc6245-eddc-4e51-82e8-518a826c9901
+spec:
+  defaultBackend:
+    service:
+      name: naos-client-service
+      port:
+        number: 7000
+  tls:
+  - secretName: cloudflare-kuiyeio
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.110.181.110
