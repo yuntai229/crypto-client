@@ -6,7 +6,7 @@ class ReportService extends Service {
     async writeCurrentSpecifyTokenMarketCap(tokenAddress) {
         try {
             this.logger.info('[writeCurrentSpecifyTokenMarketCap] req: %s', JSON.stringify({ tokenAddress }))
-            await this.ctx.curl(`http://${this.config.reporter.host}:${this.config.reporter.port}/writeSpecifyTokenMarketCap`, {
+            const res = await this.ctx.curl(`http://${this.config.reporter.host}:${this.config.reporter.port}/writeCurrentSpecifyTokenMarketCap`, {
                 method: 'POST',
                 data: {
                     tokenAddress
