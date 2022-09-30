@@ -49,13 +49,18 @@ class TokenService extends Service {
 
 			const tokenAddress = params.tokenAddress
 
-			const value = await this.service.redis.getValue(`current_${tokenAddress}`)
+			let value = await this.service.redis.getValue(`current_${tokenAddress}`)
 
 			if (value === null) {
-				return {
-					code: '400',
-					message: 'invalid input'
-				}
+				const tokenAddressList = await this.service.redis.getListData('token_address_list')
+				if (tokenAddressList.indexOf(tokenAddress) === -1) {
+					return {
+						code: '400',
+						message: 'invalid input'
+					}
+				} 
+				await this.service.api.reporter.writeCurrentSpecifyTokenMarketCap(tokenAddress)
+				value = await this.service.redis.getValue(`current_${tokenAddress}`)
 			}
 
 			return {
@@ -74,13 +79,18 @@ class TokenService extends Service {
 
 			const tokenAddress = params.tokenAddress
 
-			const value = await this.service.redis.getValue(`history_${tokenAddress}`)
+			let value = await this.service.redis.getValue(`history_${tokenAddress}`)
 
 			if (value === null) {
-				return {
-					code: '400',
-					message: 'invalid input'
+				const tokenAddressList = await this.service.redis.getListData('token_address_list')
+				if (tokenAddressList.indexOf(tokenAddress) === -1) {
+					return {
+						code: '400',
+						message: 'invalid input'
+					}
 				}
+				await this.service.api.reporter.writeSpecifyTokenMarketCapHistory(tokenAddress)
+				value = await this.service.redis.getValue(`history_${tokenAddress}`)
 			}
 
 			const history = JSON.parse(value).history
