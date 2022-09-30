@@ -48,6 +48,10 @@ module.exports = appInfo => {
         password: '',
         db: 0,
       }
+    },
+    reporter: {
+      host:'localhost',
+      port: 7002
     }
   };
 
