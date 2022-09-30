@@ -19,3 +19,10 @@ exports.redis = {
     db: 0,
   }
 };
+
+exports.reporter = {
+  report: {
+    host:'10.69.128.108',
+    port: 7000
+  }
+};
